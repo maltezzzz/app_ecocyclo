@@ -1,6 +1,6 @@
 # Ecocyclo App
 
-Ecocyclo é um aplicativo desenvolvido em **Flutter** para gestão de reciclagem eletrônica. Ele visa facilitar a conscientização sobre a reciclagem e promover ações sustentáveis para usuários e empresas.
+EcoCyclo é um aplicativo gamificado para incentivar o descarte correto de resíduos eletrônicos. Ele conecta empresas, cooperativas e usuários, oferecendo pontos, recompensas e conteúdos educativos para tornar a reciclagem mais acessível e sustentável.
 
 ---
 
