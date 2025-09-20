@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(), // aqui você chama a sua página
+      home: const Informativa1Screen(), // aqui você chama a sua página
     );
   }
 }

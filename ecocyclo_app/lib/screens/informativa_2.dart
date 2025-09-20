@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// A sua tela principal de Onboarding (segunda página)
 class Informativa2Screen extends StatelessWidget {
   const Informativa2Screen({super.key});
 
@@ -24,24 +23,27 @@ class Informativa2Screen extends StatelessWidget {
             ),
           ),
 
-          // 1. O conteúdo da sua tela dentro de um Container arredondado (Parte Branca)
+          // Parte Branca (conteúdo) com borda preta
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.78,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(150.0),
                   topRight: Radius.circular(150.0),
+                ),
+                border: Border.all(
+                  color: Colors.black, // borda preta
+                  width: 2.0,          // espessura da borda
                 ),
               ),
               child: SingleChildScrollView(
                 child: SafeArea(
                   child: Column(
                     children: [
-                      const SizedBox(height: 200),
-                      // Título principal
+                      const SizedBox(height: 190),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40.0),
                         child: Text(
@@ -54,9 +56,7 @@ class Informativa2Screen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Adiciona um SizedBox aqui para mover o subtítulo para baixo
-                      const SizedBox(height: 60),
-                      // Subtítulo
+                      const SizedBox(height: 40),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40.0),
                         child: Text(
@@ -68,8 +68,7 @@ class Informativa2Screen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 80),
-                      // Indicadores de página
+                      const SizedBox(height: 60),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -93,16 +92,13 @@ class Informativa2Screen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      // Botão "Começar"
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
                         child: SizedBox(
                           width: 350.0,
                           height: 65,
                           child: ElevatedButton(
-                            onPressed: () {
-                              // Lógica de navegação para a tela final
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF028783),
                               shape: RoundedRectangleBorder(
@@ -127,19 +123,36 @@ class Informativa2Screen extends StatelessWidget {
               ),
             ),
           ),
-          
-          // 2. A imagem que fica entre as duas partes (sobre o verde e o branco)
+
+          // Imagem com sombra
           Positioned(
-            top: -43.0,
+            top: 120.0,
             left: 0,
             right: 0,
-            child: Image.asset(
-              'assets/graf.jpg',
-              width: 300,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha((0.25 * 255).toInt()),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset(
+                    'assets/graf.jpg',
+                    width: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           ),
 
-          // Novo Botão de Voltar no canto superior esquerdo
           Positioned(
             top: 40.0,
             left: 20.0,
@@ -150,7 +163,7 @@ class Informativa2Screen extends StatelessWidget {
                 size: 30.0,
               ),
               onPressed: () {
-                Navigator.pop(context); // Retorna à tela anterior
+                Navigator.pop(context);
               },
             ),
           ),

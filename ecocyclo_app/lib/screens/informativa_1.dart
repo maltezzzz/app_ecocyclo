@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'informativa_2.dart'; // Importe a nova tela
 
 // A sua tela principal de Onboarding
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+class Informativa1Screen extends StatelessWidget {
+  const Informativa1Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,33 +15,37 @@ class OnboardingScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.centerLeft, // Início do gradiente na esquerda
-                end: Alignment.centerRight, // Fim do gradiente na direita
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
                 colors: [
-                  Color(0xFF00978A), // Cor de início do gradiente
-                  Color(0xFF0C3A63), // Cor de fim do gradiente
+                  Color(0xFF00978A),
+                  Color(0xFF0C3A63),
                 ],
               ),
             ),
           ),
           
-          // 1. O conteúdo da sua tela dentro de um Container arredondado (Parte Branca)
+          // 1. O conteúdo da sua tela dentro de um Container arredondado (Parte Branca) com borda preta
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.78, // Aumentada a altura para ocupar mais espaço
-              decoration: const BoxDecoration(
-                color: Colors.white, // Fundo branco
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(150.0), // Arredondamento ainda maior
-                  topRight: Radius.circular(150.0), // Arredondamento ainda maior
+              height: MediaQuery.of(context).size.height * 0.78,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(150.0),
+                  topRight: Radius.circular(150.0),
+                ),
+                border: Border.all(
+                  color: Colors.black, // borda preta
+                  width: 2.0,          // espessura da borda
                 ),
               ),
               child: SingleChildScrollView(
                 child: SafeArea(
                   child: Column(
                     children: [
-                      const SizedBox(height: 200), // Este SizedBox já cria o espaço do topo.
+                      const SizedBox(height: 200),
 
                       // Título principal
                       const Padding(
@@ -57,8 +61,7 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // Adicione um SizedBox aqui para mover o subtítulo para baixo
-                      const SizedBox(height: 80),
+                      const SizedBox(height: 40),
 
                       // Subtítulo
                       const Padding(
@@ -73,8 +76,7 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ),
                       
-                      // Volte este SizedBox para o valor original para manter a posição do botão
-                      const SizedBox(height: 80), 
+                      const SizedBox(height: 100), 
 
                       // Indicadores de página
                       Row(
@@ -110,7 +112,6 @@ class OnboardingScreen extends StatelessWidget {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Adicione a lógica de navegação aqui
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -145,7 +146,7 @@ class OnboardingScreen extends StatelessWidget {
 
           // 2. A imagem que fica entre as duas partes (sobre o verde e o branco)
           Positioned(
-            top: -43.0, // Valor negativo para que a imagem suba para fora dos limites do Stack
+            top: -43.0,
             left: 0,
             right: 0,
             child: Image.asset(
