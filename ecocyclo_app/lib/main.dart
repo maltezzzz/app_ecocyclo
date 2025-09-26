@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/informativa_1.dart'; // corrige o nome do arquivo aqui
+import 'screens/login.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // tira a faixa "debug"
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Informativa1Screen(), // aqui você chama a sua página
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      home: const LoginPage(),
     );
   }
 }
