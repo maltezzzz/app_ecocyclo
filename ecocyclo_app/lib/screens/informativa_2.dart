@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../theme/app_colors.dart';
+import '../../widgets/custom_indicator.dart';
 
 class Informativa2Screen extends StatelessWidget {
   const Informativa2Screen({super.key});
@@ -9,98 +11,84 @@ class Informativa2Screen extends StatelessWidget {
       body: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Gradiente de fundo
+          // Fundo gradiente
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  Color(0xFF00978A),
-                  Color(0xFF0C3A63),
+                  AppColors.gradientRight,
+                  AppColors.gradientLeft,
                 ],
               ),
             ),
           ),
 
-          // Parte Branca (conteúdo) com borda preta
+          // Parte branca com borda preta
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.78,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(150.0),
                   topRight: Radius.circular(150.0),
                 ),
-                border: Border.all(
-                  color: Colors.black, // borda preta
-                  width: 2.0,          // espessura da borda
-                ),
+                border: Border.all(color: Colors.black, width: 2.0),
               ),
               child: SingleChildScrollView(
                 child: SafeArea(
                   child: Column(
                     children: [
                       const SizedBox(height: 190),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+
+                      // Título
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
                         child: Text(
                           'Acompanhe e obtenha\n relatórios completos sobre\n seus descartes',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                       ),
                       const SizedBox(height: 40),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+
+                      // Subtítulo
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
                         child: Text(
                           'Acompanhe o impacto ambiental e\n obtenha relatórios detalhados para\n comprovar ações sustentáveis, melhorar\n processos internos e fortalecer sua\n imagem perante clientes e parceiros.',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
-                            color: Colors.black54,
+                            color: AppColors.textSecondary,
                           ),
                         ),
                       ),
                       const SizedBox(height: 60),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: Colors.teal[400],
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ],
-                      ),
+
+                      // Indicadores de página
+                      const CustomIndicator(activeIndex: 1, total: 2),
                       const SizedBox(height: 20),
+
+                      // Botão "Começar"
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
                         child: SizedBox(
-                          width: 350.0,
+                          width: 350,
                           height: 65,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/login');
+                            },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF028783),
+                              backgroundColor: AppColors.secondary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(32.5),
                               ),
@@ -110,7 +98,7 @@ class Informativa2Screen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontFamily: 'Poppins',
                               ),
                             ),
@@ -124,7 +112,7 @@ class Informativa2Screen extends StatelessWidget {
             ),
           ),
 
-          // Imagem com sombra
+          // Imagem central
           Positioned(
             top: 120.0,
             left: 0,
@@ -153,6 +141,7 @@ class Informativa2Screen extends StatelessWidget {
             ),
           ),
 
+          // Botão de voltar
           Positioned(
             top: 40.0,
             left: 20.0,
