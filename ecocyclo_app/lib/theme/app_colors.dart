@@ -5,6 +5,11 @@ class AppColors {
   static const Color gradientLeft = Color(0xFF0C3A63);
   static const Color gradientRight = Color(0xFF00978A);
 
+  // Gradiente botão "Sair da conta"
+  static const LinearGradient logoutGradient = LinearGradient(
+    colors: [Color(0xFFAA2222), Color(0xFF0C3A63)],
+  );
+
   // Cores principais
   static const Color primary = Color(0xFF0C3A63);
   static const Color secondary = Color(0xFF028783);   // botão verde

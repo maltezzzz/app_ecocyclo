@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart'; // ⬅️ Adicionado o import do logger
+import 'package:logger/logger.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/home/home_header.dart';
 import '../../widgets/home/home_disposal_card.dart';
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               HomeHeader(
                 onProfilePressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushNamed(context, '/settings');
                 },
               ),
               const SizedBox(height: 20),
