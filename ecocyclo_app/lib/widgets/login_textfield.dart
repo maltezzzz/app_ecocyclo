@@ -4,16 +4,24 @@ import '../theme/app_colors.dart';
 
 class LoginTextField extends StatelessWidget {
   final String hintText;
-  final String iconPath; 
+  final String iconPath;
   final bool obscureText;
-  final double? width; 
+  final double? width;
+  final bool? passwordVisible; 
+  final VoidCallback? onToggle;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const LoginTextField({
     super.key,
     required this.hintText,
     required this.iconPath,
     this.obscureText = false,
-    this.width, 
+    this.width,
+    this.passwordVisible,
+    this.onToggle,
+    this.controller,
+    this.validator,
   });
 
   @override
@@ -21,7 +29,9 @@ class LoginTextField extends StatelessWidget {
     return SizedBox(
       width: width ?? double.infinity,
       child: TextFormField(
-        obscureText: obscureText,
+        controller: controller,
+        validator: validator,
+        obscureText: obscureText && (passwordVisible != null ? !passwordVisible! : true),
         style: const TextStyle(color: Color.fromARGB(136, 255, 255, 255)),
         decoration: InputDecoration(
           hintText: hintText,
@@ -32,15 +42,23 @@ class LoginTextField extends StatelessWidget {
           focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: AppColors.white, width: 2.0),
           ),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: SvgPicture.asset(
-              iconPath,
-              colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn), 
-              width: 20,
-              height: 20,
-            ),
-          ),
+          suffixIcon: obscureText
+              ? IconButton(
+                  onPressed: onToggle,
+                  icon: Icon(
+                    passwordVisible! ? Icons.visibility : Icons.visibility_off,
+                    color: AppColors.white,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    iconPath,
+                    colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
         ),
       ),
     );

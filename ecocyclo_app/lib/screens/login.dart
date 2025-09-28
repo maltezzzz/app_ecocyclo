@@ -4,13 +4,30 @@ import '../widgets/login_textfield.dart';
 import '../widgets/login_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisible = false;
 
   static const List<Color> _gradientColors = [
     AppColors.gradientLeft,
     AppColors.gradientRight,
   ];
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,118 +42,140 @@ class LoginPage extends StatelessWidget {
         ),
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 40.0), 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo
-                 ClipOval(
-                  child: Container(
-                    color: const Color(0xFFE0E0E0), 
-                    padding: const EdgeInsets.all(0), 
-                    child: Image.asset(
-                      'assets/Logo.png',
-                      height: 150, 
-                      fit: BoxFit.contain,
+            padding: const EdgeInsets.symmetric(vertical: 40.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo
+                  ClipOval(
+                    child: Container(
+                      color: const Color(0xFFE0E0E0),
+                      padding: const EdgeInsets.all(0),
+                      child: Image.asset(
+                        'assets/Logo.png',
+                        height: 150,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 20),
 
-                const SizedBox(height: 20),
-
-                // Texto "Ecocyclo"
-                Text(
-                  'Ecocyclo',
-                  style: GoogleFonts.poppins(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.white,
-                  ),
-                ),
-                const SizedBox(height: 30),
-
-                // Texto "Bem Vindo"
-                Text(
-                  'Bem Vindo',
-                  style: GoogleFonts.poppins(
-                    fontSize: 34,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.white,
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Campos de texto (E-mail)
-                LoginTextField(
-                  hintText: 'E-mail',
-                  iconPath: 'assets/icons/person.svg',
-                  width: 350,
-                ),
-                const SizedBox(height: 20),
-                
-                // Campos de texto (Senha)
-                LoginTextField(
-                  hintText: 'Senha',
-                  iconPath: 'assets/icons/password.svg',
-                  obscureText: true,
-                  width: 350,
-                ),
-                const SizedBox(height: 30),
-
-                // Botão "Logar"
-                LoginButton(
-                  text: 'Logar', 
-                  onPressed: () {},
-                  textStyle: GoogleFonts.poppins(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  width: 350,
-                  // Aplica o gradiente
-                  gradientColors: _gradientColors,
-                ),
-
-                const SizedBox(height: 15),
-
-                // Texto "Esqueceu a senha?"
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                  'Esqueceu a senha?',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.white,
+                  // Texto "Ecocyclo"
+                  Text(
+                    'Ecocyclo',
+                    style: GoogleFonts.poppins(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.white,
                     ),
                   ),
-                ),
-                const SizedBox(height: 80),
+                  const SizedBox(height: 30),
 
-                // Texto "Não tem uma conta?"
-                Text(
-                  'Não tem uma conta?',
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.white,
+                  // Texto "Bem Vindo"
+                  Text(
+                    'Bem Vindo',
+                    style: GoogleFonts.poppins(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.white,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 15),
+                  const SizedBox(height: 20),
 
-                // Botão "Criar"
-                LoginButton(
-                  text: 'Criar',
-                  onPressed: () {},
-                  outlined: true,
-                  textStyle: GoogleFonts.poppins(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
+                  // Campo Email
+                  LoginTextField(
+                    hintText: 'E-mail',
+                    iconPath: 'assets/icons/person.svg',
+                    width: 350,
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'E-mail obrigatório';
+                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'E-mail inválido';
+                      return null;
+                    },
                   ),
-                  width: 150,
-                  // Aplica o gradiente
-                  gradientColors: _gradientColors,
-                ),
-              ],
+                  const SizedBox(height: 20),
+
+                  // Campo Senha
+                  LoginTextField(
+                    hintText: 'Senha',
+                    iconPath: 'assets/icons/password.svg',
+                    obscureText: true,
+                    width: 350,
+                    controller: _passwordController,
+                    passwordVisible: _passwordVisible,
+                    onToggle: () => setState(() => _passwordVisible = !_passwordVisible),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Senha obrigatória';
+                      if (value.length < 6) return 'Senha muito curta';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Botão "Logar"
+                  LoginButton(
+                    text: 'Logar',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Aqui você chamaria sua API de login
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Login válido!')),
+                        );
+                      }
+                    },
+                    textStyle: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    width: 350,
+                    gradientColors: _gradientColors,
+                  ),
+                  const SizedBox(height: 15),
+
+                  // Texto "Esqueceu a senha?"
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Esqueceu a senha?',
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+
+                  // Texto "Não tem uma conta?"
+                  Text(
+                    'Não tem uma conta?',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+
+                  // Botão "Criar"
+                  LoginButton(
+                    text: 'Criar',
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/company');
+                    },
+                    outlined: true,
+                    textStyle: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    width: 150,
+                    gradientColors: _gradientColors,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
