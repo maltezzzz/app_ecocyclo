@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/custom_indicator.dart';
-
 class Informativa1Screen extends StatelessWidget {
   const Informativa1Screen({super.key});
 
