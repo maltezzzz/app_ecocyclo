@@ -85,7 +85,7 @@ class Informativa2Screen extends StatelessWidget {
                           height: 65,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/login');
+                              Navigator.pushNamed(context, '/home');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.secondary,

@@ -1,4 +1,6 @@
+// lib/widgets/custom_indicator.dart
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 
 class CustomIndicator extends StatelessWidget {
   final int activeIndex;
@@ -16,12 +18,14 @@ class CustomIndicator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(total, (index) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          width: 10,
-          height: 10,
+          width: 8.0,
+          height: 8.0,
+          margin: const EdgeInsets.symmetric(horizontal: 4.0),
           decoration: BoxDecoration(
-            color: index == activeIndex ? Colors.teal[400] : Colors.grey[300],
             shape: BoxShape.circle,
+            color: activeIndex == index 
+                ? AppColors.secondary 
+                : AppColors.textSecondary.withAlpha(128), // ⬅️ Corrected here
           ),
         );
       }),
