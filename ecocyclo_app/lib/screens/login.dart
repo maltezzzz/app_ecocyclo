@@ -3,6 +3,7 @@ import '../theme/app_colors.dart';
 import '../widgets/login_textfield.dart';
 import '../widgets/login_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../services/auth_service.dart'; // Importa o AuthService
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,6 +30,33 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+    Future<void> _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        // Chama o serviço de login
+        final token = await AuthService.login(
+          _emailController.text,
+          _passwordController.text,
+        );
+
+        // Login bem-sucedido
+        print("Login bem-sucedido! Token: $token");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login realizado com sucesso!')),
+        );
+
+        // Navega para a tela Home
+        Navigator.pushReplacementNamed(context, '/home');
+
+      } catch (e) {
+        // Mostra erro caso o login falhe
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro no login: $e')),
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,17 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 30),
 
-                  // Botão "Logar"
+                  // Botão "Logar" usando AuthService
                   LoginButton(
                     text: 'Logar',
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Aqui você chamaria sua API de login
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Login válido!')),
-                        );
-                      }
-                    },
+                    onPressed: _handleLogin,
                     textStyle: GoogleFonts.poppins(
                       fontSize: 24,
                       fontWeight: FontWeight.w400,
