@@ -8,7 +8,13 @@ import '../theme/app_colors.dart'; // Importa AppColors
 final logger = Logger();
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+  // 1. Adicione um callback para o evento de clique no mapa
+  final VoidCallback? onMapTap;
+
+  const CustomBottomNavigationBar({
+    super.key,
+    this.onMapTap, // 2. Adicione-o ao construtor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +43,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
             },
             child: SvgPicture.asset("assets/icons/home.svg", width: 30, height: 30),
           ),
+          
+          // BOTÃO MAPA ALTERADO
           GestureDetector(
             onTap: () {
-              // TODO: Lógica para o botão Mapa
-              logger.i('Mapa clicado!');
+              // 3. Em vez de navegar aqui, chame o callback
+              logger.i('Mapa clicado! Acionando callback...');
+              onMapTap?.call(); // Chama a função que será definida na tela Home
             },
             child: SvgPicture.asset("assets/icons/map.svg", width: 30, height: 30),
           ),
+          
           GestureDetector(
             onTap: () {
               // TODO: Lógica para o botão Chat

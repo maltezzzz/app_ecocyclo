@@ -6,12 +6,28 @@ import '../../widgets/home/home_disposal_card.dart';
 import '../../widgets/home/home_shortcut_icon.dart';
 import '../../widgets/home/home_educational_card.dart';
 import '../../widgets/custom_bottom_navigation_bar.dart';
+// 1. IMPORTAR A TELA DE MAPA (Ajuste o caminho conforme a estrutura do seu projeto)
+import '/screens/map_screen.dart'; // Exemplo: Adicione esta linha ou o caminho correto
 
 // Cria uma instância global do logger para ser usada em todo o arquivo
 final logger = Logger();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  // Função que será chamada para navegar para a tela do mapa
+  void _navigateToMap(BuildContext context) {
+    logger.i('Navegando para a tela de Mapa...');
+    // Se você usa rotas nomeadas para todas as telas, use:
+    // Navigator.pushNamed(context, '/map'); 
+    
+    // Caso contrário, use MaterialPageRoute:
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const MapScreen(), // Coloque o nome correto do seu widget de tela de mapa
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +149,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      // 2. CHAME O CUSTOM BOTTOM NAVIGATION BAR E PASSE A FUNÇÃO
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onMapTap: () => _navigateToMap(context),
+      ),
     );
   }
 }
