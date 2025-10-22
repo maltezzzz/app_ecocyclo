@@ -33,13 +33,13 @@ class MyApp extends StatelessWidget {
         '/settings': (context) => const SettingsScreen(),
         '/company': (context) => const CompanyScreen(),
         '/location': (context) => const LocationScreen(
-          // companyName: '',
+          companyName: '',
           cnpj: '',
           phone: '',
           companyType: '',
         ),
         '/credentials': (context) => const CredentialsScreen(
-          // companyName: '',
+          companyName: '',
           cnpj: '',
           phone: '',
           companyType: '',
