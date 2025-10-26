@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
+import '/screens/empresas_mock_page.dart';
+
 
 class HomeDisposalCard extends StatelessWidget {
   final int inProgress;
@@ -92,7 +94,13 @@ class HomeDisposalCard extends StatelessWidget {
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const EmpresasMockPage(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.white,
                     foregroundColor: AppColors.secondary,
